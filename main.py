@@ -29,3 +29,6 @@ def info(message):
 
     
 bot.infinity_polling()
+
+
+#Тестирую гит 
