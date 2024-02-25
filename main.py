@@ -2,7 +2,7 @@ import asyncio
 from telebot.async_telebot import AsyncTeleBot
 from config import *
 
-bot = AsyncTeleBot('6840452025:AAHXohXJHFvXA-1Fj5GlNejtJ6IlfmdBV80')
+bot = AsyncTeleBot('YOUR_BOT_TOKEN')
 
 
 @bot.message_handler(commands=['start', 'hello'])
