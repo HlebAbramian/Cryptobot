@@ -3,8 +3,8 @@ from pybit.unified_trading import HTTP
 
 session = HTTP(
     testnet=True,
-    api_key="Cipei97U5fwGG3FLxa",
-    api_secret="sV8A3fi8m7yxq3RJWNllPVaD9dPfKj9w0mkw",)
+    api_key="api_key",
+    api_secret="api_secret",)
 
 coinspot = ['ETHUSDT','SOLUSDT','BTCUSDT','MNTUSDT','XRPUSDT','STRKUSDT','ONDOUSDT','BNBUSDT','ETCUSDT']
 
