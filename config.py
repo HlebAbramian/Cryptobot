@@ -2,7 +2,7 @@ from pybit.unified_trading import HTTP
 
 
 session = HTTP(
-    testnet=True,
+    testnet=False,
     api_key="api_key",
     api_secret="api_secret",)
 
