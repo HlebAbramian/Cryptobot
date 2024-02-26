@@ -31,17 +31,27 @@ new_price = get_price(coin_spot)
 price_for_print = ''.join([f"{coin}: {price}\n" for coin, price in new_price.items()])
 print(''.join(price_for_print))
 
-def percent(current_price, new_price):
+def percent(current_price, new_price, tokens_list, min_percent):
     price_change_list = []
-    for coin, price in current_price.items():
+    for coin in tokens_list:
         cur_price = float(current_price[coin])
         nw_price = float(new_price[coin])
         price_change = ((cur_price - nw_price) / cur_price) * 100
-        price_change = round(price_change,5)
-        price_change_list += f"Change of {coin}: {price_change}%\n"
-    return (price_change_list)
+        price_change = round(price_change, 5)
+        if abs(price_change) >= min_percent:
+            price_change_list.append(f"Change of {coin}: {price_change}%")
+    return price_change_list
 
-print(''.join(percent(current_price,new_price)))
+selected_tokens = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT']
+min_percent_change = 0.01
+
+selected_price_changes = percent(current_price, new_price, selected_tokens, min_percent_change)
+
+if selected_price_changes:
+    print("Price changes exceeding the minimum percentage:")
+    print("\n".join(selected_price_changes))
+else:
+    print("No price changes exceeding the minimum percentage.")
 
 
 

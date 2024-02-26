@@ -5,6 +5,7 @@ from config import *
 bot = AsyncTeleBot('bot_link')
 
 
+
 @bot.message_handler(commands=['start', 'hello'])
 async def send_welcome(message):
     await bot.send_message(message.chat.id, f'Hi, {message.from_user.first_name} {message.from_user.last_name}')
@@ -14,7 +15,7 @@ async def priceMessage(message):
         await bot.send_message(message.chat.id,f'{price_for_print}')
 
 @bot.message_handler(func=lambda message:True)            
-async def send_hi(message):
+async def main(message):
     if message.text.lower() == 'привет':
         await bot.send_message(message.chat.id, f'Glad to see you, {message.from_user.first_name} {message.from_user.last_name}')
         
