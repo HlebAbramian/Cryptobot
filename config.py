@@ -1,32 +1,47 @@
 from pybit.unified_trading import HTTP
+import time
 
 
 session = HTTP(
-    testnet=True,
-    api_key="Cipei97U5fwGG3FLxa",
-    api_secret="sV8A3fi8m7yxq3RJWNllPVaD9dPfKj9w0mkw",)
+    testnet=False,
+    api_key="api_key",
+    api_secret="api_secret",)
 
-coinspot = ['ETHUSDT','SOLUSDT','BTCUSDT','MNTUSDT','XRPUSDT','STRKUSDT','ONDOUSDT','BNBUSDT','ETCUSDT']
+coin_spot = ['BTCUSDT','ETHUSDT','SOLUSDT','MNTUSDT','XRPUSDT','STRKUSDT','ONDOUSDT','BNBUSDT','ETCUSDT']
 
-def get_price():
-    for coin in coinspot:
+def get_price(coins_list):
+    prices = {}
+    for coin in coins_list:
         response = session.get_tickers(
             category="linear",
             symbol=f"{coin}",)['result']['list'][0]['markPrice']
         
-        yield f"{coin}: {response}\n"
+        prices[coin] = response
+    
+    return prices
 
-coinsprice = list(get_price())
+current_price = get_price(coin_spot)
 
-price_for_print = ''
+price_for_print = ''.join([f"{coin}: {price}\n" for coin, price in current_price.items()])
 
-for coin_price in coinsprice:
-    price_for_print += coin_price
+print(''.join(price_for_print))
 
-print(price_for_print)
+time.sleep(10)
+new_price = get_price(coin_spot)
+price_for_print = ''.join([f"{coin}: {price}\n" for coin, price in new_price.items()])
+print(''.join(price_for_print))
 
+def percent(current_price, new_price):
+    price_change_list = []
+    for coin, price in current_price.items():
+        cur_price = float(current_price[coin])
+        nw_price = float(new_price[coin])
+        price_change = ((cur_price - nw_price) / cur_price) * 100
+        price_change = round(price_change,5)
+        price_change_list += f"Change of {coin}: {price_change}%\n"
+    return (price_change_list)
 
-
+print(''.join(percent(current_price,new_price)))
 
 
 
